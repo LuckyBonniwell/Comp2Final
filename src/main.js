@@ -1,4 +1,5 @@
 // creates the graph of true or falses that makes the cave
+
 function getRandomInteger(min, max) 
 {
   min = Math.ceil(min); // Ensure min is a whole number (rounds up)
@@ -122,4 +123,43 @@ function mazeEater()
           }
     }
 }
+
+// ------------------------------------------------------
+// movement states
+
+let playerState = "idle";
+let jumpState = "land";
+if (keyIsDown(RIGHT_ARROW) === true && keyIsDown(LEFT_ARROW) === true){
+  playerState = "idle"
+}
+else if (keyIsDown(LEFT_ARROW) === true){
+  playerState = "walkLeft"
+}
+else if (keyIsDown(RIGHT_ARROW) === true){
+  playerState = "walkRight"
+} 
+else {
+  playerState = "idle"
+}
+if (keyIsDown(UP_ARROW) === true){
+  jumpState = "air"
+};
+if (playerState === "walkRight" && jumpState === "air"){
+  jumpState = "jumpRight"
+};
+if (playerState === "walkLeft" && jumpState === "air"){
+  jumpState = "jumpLeft"
+};
+
+// ------------------------------------------------------
+// map movement
+let mapX = 0;
+let mapY = 0;
+if (playerState === "walkLeft"){
+  mapX += 5;
+}
+if (playerState === "walkRight"){
+  mapX -= 5;
+}
+
 // ------------------------------------------------------
