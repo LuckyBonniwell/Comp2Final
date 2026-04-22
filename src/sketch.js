@@ -1,3 +1,4 @@
+let playerX = 200
 function changeStates(){
   if (keyIsDown(LEFT_ARROW) && keyIsDown(RIGHT_ARROW)){
     playerState = "idle"
@@ -17,14 +18,39 @@ function changeStates(){
   } else {
     blockState = "mid"
   }
+  if (blockState === "mid" && keyIsDown(88)){
+    dodgeState = "crouch"
+  } else if (blockState === "up" && keyIsDown(88)){
+    dodgeState = "sideStep"
+  } else if (blockState === "down" && keyIsDown(88)){
+    dodgeState = "crouch"
+  } else {
+    dodgeState = "none"
+  }
+}
+function playerMovement(){
+  if (playerState === "walkRight"){
+    playerX += 3
+  }
+  if (playerState === "walkLeft"){
+    playerX -= 3
+  }
 }
 function setup() {
+  createCanvas(1463,600);
   let playerState = "idle"
   let blockState = "mid"
+  let dodgeState = "none"
+  let playerX = 200
 }
 
 function draw() {
+  background(150);
   changeStates();
-  console.log(playerState);
-  console.log(blockState);
+  playerMovement();
+  fill(255);
+  circle(playerX,400,50);
+  // console.log(playerState);
+  // console.log(blockState);
+  // console.log(dodgeState);
 }
